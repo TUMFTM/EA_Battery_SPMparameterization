@@ -1,0 +1,16 @@
+%% Objective function
+%  See spmet.m for credentials
+
+function [U] = spmet_objective(t, I, p0, SOC0, Nr, Nxn, Nxs, Nxp)
+
+% Simulation of SPMeT
+[~, ~, ~, ...
+     ~, ~, ...
+     ~, ~, ~, ...
+     ~, eta_p, ~, Upref, ...
+     ~, eta_sei_p, ...
+     ~, ~] = spmet_fnc(t, I, p0, SOC0, Nr, Nxn, Nxs, Nxp);
+
+% Return anode potential
+U = Upref+eta_p+eta_sei_p;
+end
