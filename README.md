@@ -50,7 +50,7 @@ The directory *sensitivity* provides all necessary files for a sensitivity analy
 
 The authors want to thank the following persons, who, with their brilliant contributions made this work possible.
 
-- Leo Wildfeuer, wildfeuer@ftm.mw.tum.de
+- Leo Wildfeuer, leo.wildfeuer@tum.de
   - Two-electrode half cell measurements and analysis
 - Manuel Ank, manuel.ank@tum.de
   - System validation measurement setup and analysis
