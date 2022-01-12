@@ -8,7 +8,7 @@ The model is based on the Single Particle Model with electrolyte and thermal dyn
 updated and extended with a full parameter set, model validation for a commercial Sony US18650VTC5A cell (SiC/NCA) and parameter identification functions developed and published by
 
 [Nikolaos Wassiliadis](mailto:nikolaos.wassiliadis@tum.de),<br/>
-**[Institute of Automotive Technology](https://www.ftm.mw.tum.de/en/home/)**,<br/>
+**[Institute of Automotive Technology](https://www.mos.ed.tum.de/mos/startseite/)**,<br/>
 **[Technical University of Munich, Germany](https://www.tum.de/nc/en/)**,<br/>
 [DOI will follow with publication].
 
