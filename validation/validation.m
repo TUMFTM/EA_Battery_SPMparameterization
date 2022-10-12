@@ -130,7 +130,7 @@ for idx_temp = 1:length(temperatures)
         plot(t_sim, U_sim, 'LineWidth', 1, 'Color', [162/255 173/255 0])
         xlabel('Time in s')
         ylabel('Voltage in V')
-        legend('measurement', ['new fit: RMSE = ' num2str(round(rmse(idx_sim,1),2)) 'mV'], ...
+        legend('Measurement', ['Fit: RMSE = ' num2str(round(rmse(idx_sim,1),2)) 'mV'], ...
                'Location', 'Southeast')
 
         switch num2str(idx_sim)

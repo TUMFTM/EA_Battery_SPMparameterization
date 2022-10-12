@@ -9,17 +9,6 @@
 % Balancing and Alignment 
 load('parameter/B_A.mat');
 p.B_A = Results;
-% Sensitivity analysis extention: Recalculate the balancing and alignment with adjusted bounds
-p.B_A.Q_anode = (p.B_A.Q_anode+p.B_A.sigma_neg)/p.B_A.s_neg; % Recalculate pristine anode capacity
-p.B_A.Q_cathode = (p.B_A.Q_cathode+p.B_A.sigma_pos)/p.B_A.s_pos; % Recalculate pristine cathode capacity
-x(1)=p.B_A.sigma_neg*pscale(6); % Transfer sigma NE for readability of code
-x(2)=p.B_A.sigma_pos*pscale(7); % Transfer sigma PE for readability of code
-x(3)=p.B_A.s_neg*pscale(8); % Transfer scale NE for readability of code
-x(4)=p.B_A.s_pos*pscale(9); % Transfer scale PE for readability of code
-p.B_A.Q_anode_SP = (min(p.B_A.Q_fullcell)-min(p.B_A.Q_anode*x(3)-x(1)))/(max(p.B_A.Q_anode*x(3)-x(1))-min(p.B_A.Q_anode*x(3)-x(1)));
-p.B_A.Q_anode_EP = (max(p.B_A.Q_fullcell)-min(p.B_A.Q_anode*x(3)-x(1)))/(max(p.B_A.Q_anode*x(3)-x(1))-min(p.B_A.Q_anode*x(3)-x(1)));
-p.B_A.Q_cathode_SP = (min(p.B_A.Q_fullcell)-min(p.B_A.Q_cathode*x(4)-x(2)))/(max(p.B_A.Q_cathode*x(4)-x(2))-min(p.B_A.Q_cathode*x(4)-x(2)));
-p.B_A.Q_cathode_EP = (max(p.B_A.Q_fullcell)-min(p.B_A.Q_cathode*x(4)-x(2)))/(max(p.B_A.Q_cathode*x(4)-x(2))-min(p.B_A.Q_cathode*x(4)-x(2)));
 % Anode OCV 
 transfer = load('parameter/OCV_anode.mat');
 p.p_n = transfer.p;
@@ -36,10 +25,10 @@ p.kin_k_p = transfer.cathode_fitk;
 p.kin_D_p = transfer.cathode_fitD;
 % Fullcell kinetics
 transfer = load('parameter/kinetics_fullcell');
-p.E.kn  = transfer.activation_energies(1)*pscale(10);     % Reaction rate neg. electrode [J/mol]
-p.E.kp  = transfer.activation_energies(2)*pscale(11);     % Reaction rate pos. electrode [J/mol]
-p.E.Dsn = transfer.activation_energies(3)*pscale(12);     % Diffusion coeff for solid in neg. electrode [J/mol]
-p.E.Dsp = transfer.activation_energies(4)*pscale(13);     % Diffusion coeff solid pos. electrode [J/mol]
+p.E.kn  = transfer.activation_energies(1);     % Reaction rate neg. electrode [J/mol]
+p.E.kp  = transfer.activation_energies(2);     % Reaction rate pos. electrode [J/mol]
+p.E.Dsn = transfer.activation_energies(3);     % Diffusion coeff for solid in neg. electrode [J/mol]
+p.E.Dsp = transfer.activation_energies(4);     % Diffusion coeff solid pos. electrode [J/mol]
 p.K_multi_n = transfer.ref_factors(1); % Scaling factor at fullcell level and reference temperature 293.15K
 p.K_multi_p = transfer.ref_factors(2); % Scaling factor at fullcell level and reference temperature 293.15K
 p.D_multi_n = transfer.ref_factors(3); % Scaling factor at fullcell level and reference temperature 293.15K
@@ -47,7 +36,7 @@ p.D_multi_p = transfer.ref_factors(4); % Scaling factor at fullcell level and re
 
 %% Load geometric parameter
 
-p.Area = 0.1024*pscale(1);  % Electrode area [m^2] - Lain (2019) 
+p.Area = 0.1024;  % Electrode area [m^2] - Lain (2019) 
 
 % Thickness of layers
 p.L_s = 8e-6;     % Lain (2019) Thickness of separator [m]
@@ -55,8 +44,8 @@ L_ccn = 14e-6;    % Lain (2019) Thickness of negative current collector [m]
 L_ccp = 15e-6;    % Lain (2019) Thickness of positive current collector [m]
 
 % Particle Radii
-p.R_s_n = 7e-6*pscale(2);   % Lain (2019) Radius of solid particles in negative electrode [m]
-p.R_s_p = 2.5e-6*pscale(3); % Lain (2019) Radius of solid particles in positive electrode [m]
+p.R_s_n = 7e-6;   % Lain (2019) Radius of solid particles in negative electrode [m]
+p.R_s_p = 2.5e-6; % Lain (2019) Radius of solid particles in positive electrode [m]
 
 % Volume fractions
 p.epsilon_s_n = 0.73*0.95;      % Volume fraction in solid for neg. electrode - Lain (2019) 95% active material 
@@ -93,7 +82,7 @@ p.brug = 1.5;       % Bruggeman porosity
 
 % Miscellaneous
 p.t_plus = 0.38;            % Transference number - Valoen (2005) 
-p.Faraday = 96485.33289;    % Faraday's constant, [Coulumbs/mol]
+p.Faraday = 96485.33289;    % Faraday's constant, [Coulumb/mol]
 
 
 %% Kinetic parameter
@@ -102,9 +91,13 @@ p.R = 8.314472;         % Gas constant, [J/mol-K]
 
 p.alph = 0.5;           % Charge transfer coefficients
 
-p.R_f_n = 4.4e-3;       % Resistivity of SEI layer, [Ohms*m^2]
-p.R_f_p = 0;            % Resistivity of SEI layer, [Ohms*m^2]
+p.R_f_n = 4.4e-3;       % Resistivity of SEI layer, [Ohm*m^2]
+p.R_f_p = 0;            % Resistivity of SEI layer, [Ohm*m^2]
 
+%% System parameter
+p.bat_s = 1;              % Cells in serial
+p.bat_p = 1;              % Cells in parallel
+p.R_ECR = 0; %0.74*1e-3;  % Electrical contact resistance (ECR) Cu/Al - Schmidt et al. (2016) [Ohm]
 
 %% Aging submodel Params (Unused)
 
@@ -123,10 +116,10 @@ p.Us = 0.4;         % [V] reference potential of side rxn
 
 %% Concentrations
 
-q_n = 343*pscale(4);                                         % Active material capacity, [mAh/g] - Lain (2019)
+q_n = 343;                                         % Active material capacity, [mAh/g] - Lain (2019)
 p.c_s_n_max = 3.6e3 * q_n * rho_sn / p.Faraday;    % Max concentration in anode, [mol/m^3]
 
-q_p = 168*pscale(5);                                         % Active material capacity, [mAh/g] - Lain (2019)
+q_p = 168;                                         % Active material capacity, [mAh/g] - Lain (2019)
 p.c_s_p_max = 3.6e3 * q_p * rho_sp / p.Faraday;    % Max concentration in cathode, [mol/m^3]
 
 p.c_e = 1e3;                                       % Fixed electrolyte concentration, [mol/m^3]
@@ -154,7 +147,7 @@ m_cc = rho_ccn*L_ccn + rho_ccp*L_ccp;
 p.rho_avg = m_n + m_s + m_p + m_cc;
 
 % Lumped weight [kg]
-p.w_cell = p.rho_avg*p.Area*pscale(14);
+p.w_cell = p.rho_avg*p.Area;
 
 
 %% Thermodynamic parameter
@@ -168,5 +161,5 @@ p.E.De = 17.12e3;               % Diffusion coeff electrolyte [J/mol]
 p.E.kappa_e =17.12e3;           % Activation energy electrolyte conductivity [J/mol]
 
 % Heat transfer parameters
-p.C1 = 986.2*p.w_cell*pscale(15);          % Heat capacity [J/K]
-p.h12 = 0.0306*pscale(16);                 % Heat transfer coefficient [W/K] alpha = 3.4 [W/(m^2*K)]
+p.C1 = 551*p.w_cell;          % Heat capacity [J/K]
+p.h12 = 0.31;                 % Heat transfer coefficient [W/m^2 K]]

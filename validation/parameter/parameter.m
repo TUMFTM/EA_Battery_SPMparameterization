@@ -161,5 +161,5 @@ p.E.De = 17.12e3;               % Diffusion coeff electrolyte [J/mol]
 p.E.kappa_e =17.12e3;           % Activation energy electrolyte conductivity [J/mol]
 
 % Heat transfer parameters
-p.C1 = 986.2*p.w_cell;          % Heat capacity [J/K]
-p.h12 = 0.0306;                 % Heat transfer coefficient [W/K] alpha = 3.4 [W/(m^2*K)]
+p.C1 = 551*p.w_cell;          % Heat capacity [J/K]
+p.h12 = 0.31;                 % Heat transfer coefficient [W/m^2 K]]
