@@ -10,7 +10,7 @@ updated and extended with a full parameter set, model validation for a commercia
 [Nikolaos Wassiliadis](mailto:nikolaos.wassiliadis@tum.de),<br/>
 **[Institute of Automotive Technology](https://www.mos.ed.tum.de/mos/startseite/)**,<br/>
 **[Technical University of Munich, Germany](https://www.tum.de/nc/en/)**,<br/>
-[DOI will follow with publication].
+https://doi.org/10.1016/j.est.2022.105951.
 
 ## Features
 - In-depth analysis of half and full cell data of a commercially available lithium-ion battery (Sony US18650VTC5A).
